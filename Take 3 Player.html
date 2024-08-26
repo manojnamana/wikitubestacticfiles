@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculus - Wikitube</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Lato', 'Helvetica', 'Arial', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            color: #202122;
+            background-color: #f8f9fa;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+        header {
+            background-color: #ffffff;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #a2a9b1;
+        }
+        .wordmark {
+            font-family: 'Hoefler Text', serif;
+            font-size: 24px;
+            color: #202122;
+            text-decoration: none;
+        }
+        .search-bar {
+            flex-grow: 1;
+            margin: 0 20px;
+        }
+        .search-bar input {
+            width: 100%;
+            padding: 5px 10px;
+            border: 1px solid #a2a9b1;
+            border-radius: 2px;
+        }
+        .user-actions button {
+            margin-left: 10px;
+            padding: 5px 10px;
+            background-color: #3366cc;
+            color: white;
+            border: none;
+            border-radius: 2px;
+            cursor: pointer;
+        }
+        h1, h2, h3 {
+            border-bottom: 1px solid #a2a9b1;
+            padding-bottom: 5px;
+        }
+        .expand-video {
+            cursor: pointer;
+            color: #0645ad;
+            font-weight: bold;
+            margin-right: 5px;
+            text-decoration: none;
+        }
+        .video-results {
+            display: none;
+            margin: 10px 0;
+            padding: 10px;
+            background-color: #f8f9fa;
+            border: 1px solid #a2a9b1;
+        }
+        .video-carousel {
+            display: flex;
+            overflow-x: auto;
+            padding: 10px 0;
+        }
+        .video-item {
+            margin-right: 10px;
+            text-align: center;
+        }
+        .video-thumbnail {
+            width: 160px;
+            height: 90px;
+            background-color: #ddd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 5px;
+        }
+        .video-title {
+            font-size: 12px;
+            max-width: 160px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        .toc {
+            background-color: #f8f9fa;
+            border: 1px solid #a2a9b1;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+        .toc-title {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .toc ul {
+            list-style-type: none;
+            padding-left: 20px;
+        }
+        a {
+            color: #0645ad;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        footer {
+            background-color: #f8f9fa;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: center;
+            border-top: 1px solid #a2a9b1;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+        }
+        footer button {
+            margin: 0 10px;
+            padding: 5px 10px;
+            background-color: #3366cc;
+            color: white;
+            border: none;
+            border-radius: 2px;
+            cursor: pointer;
+        }
+        .chatbot {
+            margin-top: 20px;
+            border: 1px solid #ddd;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .video-container {
+            display: flex;
+            gap: 24px;
+        }
+        .video-player {
+            flex: 3;
+        }
+        .video-placeholder {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            background-color: #000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+            font-size: 24px;
+        }
+        .video-info {
+            margin-top: 12px;
+        }
+        .video-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+        .channel-info {
+            display: flex;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+        .channel-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 12px;
+        }
+        .channel-name {
+            font-weight: bold;
+        }
+        .video-description {
+            background-color: #f1f1f1;
+            padding: 12px;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+        .share-button {
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            width: 100%;
+        }
+        .transcript-section {
+            flex: 2;
+        }
+        .transcript-container {
+            height: 300px;
+            overflow-y: auto;
+            border: 1px solid #e0e0e0;
+            padding: 16px;
+            background-color: #fff;
+            border-radius: 4px;
+            margin-bottom: 12px;
+        }
+        .language-selectors {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 10px;
+        }
+        .timestamp {
+            color: #606060;
+            margin-right: 8px;
+            font-size: 14px;
+        }
+        .wiki-link {
+            color: #0645ad;
+            text-decoration: none;
+            cursor: pointer;
+            position: relative;
+        }
+        .wiki-link:hover::after {
+            content: attr(data-article);
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #fff;
+            border: 1px solid #ddd;
+            padding: 5px;
+            border-radius: 3px;
+            white-space: nowrap;
+            z-index: 1;
+        }
+        .wiki-container {
+            margin-top: 24px;
+            border: 1px solid #e0e0e0;
+            padding: 16px;
+            background-color: #fff;
+            border-radius: 4px;
+        }
+        select, button {
+            padding: 4px 8px;
+            border: 1px solid #d3d3d3;
+            background-color: #f8f8f8;
+            border-radius: 2px;
+            font-size: 12px;
+        }
+        .edit-transcript-btn {
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            width: 100%;
+        }
+        .mode-buttons {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .mode-buttons button {
+            margin: 0 10px;
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body onload="loadTranscript('en')">
+    <header>
+        <a href="#" class="wordmark">Wikitube</a>
+        <div class="search-bar">
+            <input type="text" placeholder="Search Wikitube">
+        </div>
+        <div class="user-actions">
+            <span>👤 User</span>
+            <button onclick="alert('Logout functionality not implemented in prototype')">Log Out</button>
+            <button onclick="alert('Thank you for your support!')">Donate</button>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="video-container">
+            <div class="video-player">
+                <div class="video-placeholder">Video Placeholder</div>
+                <div class="video-info">
+                    <div class="video-title">Calculus at a Fifth Grade Level</div>
+                    <div class="channel-info">
+                        <img src="https://via.placeholder.com/40" alt="Channel Avatar" class="channel-avatar">
+                        <span class="channel-name">3Blue1Brown</span>
+                    </div>
+                    <div class="video-description">
+                        Many people view calculus as the pinnacle of high school math. But actually, it's an introduction to some very simple and elegant ideas that use the math we already know. If we teach kids these ideas at a young age, it could completely change how people view math.
+                    </div>
+                    <button class="share-button">Share</button>
+                </div>
+            </div>
+            <div class="transcript-section">
+                <div class="language-selectors">
+                    <select id="transcriptLanguage">
+                        <option value="en" selected>EN</option>
+                        <option value="fr">FR</option>
+                        <option value="es">ES</option>
+                        <option value="de">DE</option>
+                        <option value="ru">RU</option>
+                    </select>
+                    <select id="wikiLanguage">
+                        <option value="en" selected>EN</option>
+                        <option value="fr">FR</option>
+                        <option value="es">ES</option>
+                        <option value="de">DE</option>
+                        <option value="ru">RU</option>
+                    </select>
+                </div>
+                <div class="transcript-container" id="transcript">
+                    <!-- Transcript content will be dynamically added here -->
+                </div>
+                <button class="edit-transcript-btn">Edit Transcript</button>
+            </div>
+        </div>
+
+        <div class="wiki-container" id="wikiContent">
+            <h2>Calculus</h2>
+            <p><span class="wiki-link" data-article="Calculus">Calculus</span> is the mathematical study of continuous change, in the same way that <span class="wiki-link" data-article="Geometry">geometry</span> is the study of shape, and <span class="wiki-link" data-article="Algebra">algebra</span> is the study of generalizations of arithmetic operations.</p>
+            <p>It has two major branches, <span class="wiki-link" data-article="Differential_calculus">differential calculus</span> and <span class="wiki-link" data-article="Integral_calculus">integral calculus</span>; differential calculus concerns instantaneous rates of change, and the slopes of curves, while integral calculus concerns accumulation of quantities, and areas under or between curves.</p>
+        </div>
+
+        <div class="chatbot">
+            <h3>Calculus Quiz</h3>
+            <p>What is the main focus of calculus?</p>
+            <button onclick="alert('Correct!')">Continuous change</button>
+            <button onclick="alert('Try again!')">Static quantities</button>
+            <button onclick="alert('Try again!')">Discrete numbers</button>
+        </div>
+    </div>
+
+    <footer>
+        <button onclick="alert('C.R.E.A.T.E.R. mode not implemented in prototype')">C.R.E.A.T.E.R.</button>
+        <button onclick="alert('Course Maker not implemented in prototype')">Course Maker</button>
+    </footer>
+
+    <script>
+        const transcripts = {
+            en: [
+                { time: "0:00", text: "Today we're going to learn about <span class='wiki-link' data-article='Calculus'>calculus</span>." },
+                { time: "0:15", text: "Calculus is all about studying how things change." },
+                { time: "0:30", text: "It's like <span class='wiki-link' data-article='Algebra'>algebra</span>, but instead of using numbers, we use rates of change." },
+                { time: "0:45", text: "One important concept in calculus is the <span class='wiki-link' data-article='Derivative'>derivative</span>." }
+            ],
+            fr: [
+                { time: "0:00", text: "Aujourd'hui, nous allons apprendre le <span class='wiki-link' data-article='Calculus'>calcul</span>." },
+                { time: "0:15", text: "Le calcul consiste à étudier comment les choses changent." },
+                { time: "0:30", text: "C'est comme l'<span class='wiki-link' data-article='Algebra'>algèbre</span>, mais au lieu d'utiliser des nombres, nous utilisons des taux de changement." },
+                { time: "0:45", text: "Un concept important en calcul est la <span class='wiki-link' data-article='Derivative'>dérivée</span>." }
+            ],
+            es: [
+                { time: "0:00", text: "Hoy vamos a aprender sobre el <span class='wiki-link' data-article='Calculus'>cálculo</span>." },
+                { time: "0:15", text: "El cálculo trata sobre estudiar cómo cambian las cosas." },
+                { time: "0:30", text: "Es como el <span class='wiki-link' data-article='Algebra'>álgebra</span>, pero en lugar de usar números, usamos tasas de cambio." },
+                { time: "0:45", text: "Un concepto importante en el cálculo es la <span class='wiki-link' data-article='Derivative'>derivada</span>." }
+            ],
+            de: [
+                { time: "0:00", text: "Heute werden wir etwas über <span class='wiki-link' data-article='Calculus'>Differenzial- und Integralrechnung</span> lernen." },
+                { time: "0:15", text: "In der Differenzial- und Integralrechnung geht es darum, wie sich Dinge verändern." },
+                { time: "0:30", text: "Es ist wie <span class='wiki-link' data-article='Algebra'>Algebra</span>, aber anstatt Zahlen verwenden wir Änderungsraten." },
+                { time: "0:45", text: "Ein wichtiges Konzept in der Differenzialrechnung ist die <span class='wiki-link' data-article='Derivative'>Ableitung</span>." }
+            ],
+            ru: [
+                { time: "0:00", text: "Сегодня мы будем изучать <span class='wiki-link' data-article='Calculus'>исчисление</span>." },
+                { time: "0:15", text: "Исчисление - это изучение того, как меняются вещи." },
+                { time: "0:30", text: "Это похоже на <span class='wiki-link' data-article='Algebra'>алгебру</span>, но вместо чисел мы используем скорости изменения." },
+                { time: "0:45", text: "Важное понятие в исчислении - это <span class='wiki-link' data-article='Derivative'>производная</span>." }
+            ]
+        };
+
+        function loadTranscript(language) {
+            const transcriptContainer = document.getElementById('transcript');
+            transcriptContainer.innerHTML = '';
+            transcripts[language].forEach(entry => {
+                const line = document.createElement('p');
+                line.innerHTML = `<span class="timestamp">${entry.time}</span>${entry.text}`;
+                transcriptContainer.appendChild(line);
+            });
+            setupWikiLinks();
+        }
+
+        function setupWikiLinks() {
+            document.querySelectorAll('.wiki-link').forEach(link => {
+                link.addEventListener('click', () => {
+                    window.location.href = "directory.html"; // Change to Directory mode page
+                });
+                link.addEventListener('mouseover', (event) => {
+                    const thumbnail = document.createElement('div');
+                    thumbnail.textContent = link.dataset.article;
+                    thumbnail.style.position = 'absolute';
+                    thumbnail.style.backgroundColor = '#fff';
+                    thumbnail.style.border = '1px solid #ddd';
+                    thumbnail.style.padding = '5px';
+                    thumbnail.style.borderRadius = '3px';
+                    thumbnail.style.zIndex = '1000';
+                    document.body.appendChild(thumbnail);
+
+                    const rect = link.getBoundingClientRect();
+                    thumbnail.style.left = `${rect.left}px`;
+                    thumbnail.style.top = `${rect.bottom + 5}px`;
+
+                    link.addEventListener('mouseout', () => {
+                        document.body.removeChild(thumbnail);
+                    }, { once: true });
+                });
+            });
+        }
+
+        document.getElementById('transcriptLanguage').addEventListener('change', (e) => {
+            loadTranscript(e.target.value);
+        });
+
+        document.getElementById('wikiLanguage').addEventListener('change', (e) => {
+            alert(`Changed wiki content language to ${e.target.value}`);
+            // In a real implementation, this would change the wiki content language
+        });
+
+        document.querySelector('.share-button').addEventListener('click', () => {
+            alert('Sharing functionality will be implemented in the full version.');
+        });
+
+        document.querySelector('.search-bar input').addEventListener('input', (e) => {
+            alert(`Search query: ${e.target.value}`);
+            // In a real implementation, this would trigger a search
+        });
+
+        document.getElementById('creater-btn').addEventListener('click', () => {
+            alert('C.R.E.A.T.E.R. mode not implemented in this prototype.');
+        });
+
+        document.getElementById('course-maker-btn').addEventListener('click', () => {
+            alert('Course Maker not implemented in this prototype.');
+        });
+
+        // Initialize with English content
+        document.addEventListener('DOMContentLoaded', function() {
+            loadTranscript('en');
+        });
+    </script>
+</body>
+</html>

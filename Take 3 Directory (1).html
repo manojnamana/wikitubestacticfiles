@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculus - Wikitube</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Lato', 'Helvetica', 'Arial', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            color: #202122;
+            background-color: #f8f9fa;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        header {
+            background-color: #ffffff;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #a2a9b1;
+        }
+        .wordmark {
+            font-family: 'Hoefler Text', serif;
+            font-size: 24px;
+            color: #202122;
+            text-decoration: none;
+        }
+        .search-bar {
+            flex-grow: 1;
+            margin: 0 20px;
+        }
+        .search-bar input {
+            width: 100%;
+            padding: 5px 10px;
+            border: 1px solid #a2a9b1;
+            border-radius: 2px;
+        }
+        .user-actions button {
+            margin-left: 10px;
+            padding: 5px 10px;
+            background-color: #3366cc;
+            color: white;
+            border: none;
+            border-radius: 2px;
+            cursor: pointer;
+        }
+        h1, h2, h3 {
+            border-bottom: 1px solid #a2a9b1;
+            padding-bottom: 5px;
+        }
+        .expand-video {
+            cursor: pointer;
+            color: #0645ad;
+            font-weight: bold;
+            margin-right: 5px;
+            text-decoration: none;
+        }
+        .video-results {
+            display: none;
+            margin: 10px 0;
+            padding: 10px;
+            background-color: #f8f9fa;
+            border: 1px solid #a2a9b1;
+        }
+        .video-carousel {
+            display: flex;
+            overflow-x: auto;
+            padding: 10px 0;
+        }
+        .video-item {
+            margin-right: 10px;
+            text-align: center;
+        }
+        .video-thumbnail {
+            width: 160px;
+            height: 90px;
+            background-color: #ddd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 5px;
+        }
+        .video-title {
+            font-size: 12px;
+            max-width: 160px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        .toc {
+            background-color: #f8f9fa;
+            border: 1px solid #a2a9b1;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+        .toc-title {
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .toc ul {
+            list-style-type: none;
+            padding-left: 20px;
+        }
+        .language-selector {
+            margin-bottom: 20px;
+        }
+        a {
+            color: #0645ad;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        footer {
+            background-color: #f8f9fa;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: center;
+            border-top: 1px solid #a2a9b1;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+        }
+        footer button {
+            margin: 0 10px;
+            padding: 5px 10px;
+            background-color: #3366cc;
+            color: white;
+            border: none;
+            border-radius: 2px;
+            cursor: pointer;
+        }
+        .chatbot {
+            margin-top: 20px;
+            border: 1px solid #ddd;
+            padding: 10px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="#" class="wordmark">Wikitube</a>
+        <div class="search-bar">
+            <input type="text" placeholder="Search Wikitube">
+        </div>
+        <div class="user-actions">
+            <span>👤 User</span>
+            <button onclick="alert('Logout functionality not implemented in prototype')">Log Out</button>
+            <button onclick="alert('Thank you for your support!')">Donate</button>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="language-selector">
+            Language: 
+            <select id="language-select" onchange="changeLanguage()">
+                <option value="EN">EN</option>
+                <option value="FR">FR</option>
+                <option value="ES">ES</option>
+                <option value="DE">DE</option>
+                <option value="RU">RU</option>
+                <option value="SW">SW</option>
+            </select>
+        </div>
+
+        <h1>Calculus</h1>
+
+        <div class="toc">
+            <div class="toc-title">Contents</div>
+            <ul>
+                <li>1. Etymology</li>
+                <li>2. History</li>
+                <li>3. Principles
+                    <ul>
+                        <li>3.1 Limits and infinitesimals</li>
+                        <li>3.2 Differential calculus</li>
+                        <li>3.3 Integral calculus</li>
+                    </ul>
+                </li>
+                <li>4. Applications</li>
+            </ul>
+        </div>
+
+        <div id="content">
+            <!-- Content will be dynamically inserted here based on language selection -->
+        </div>
+
+        <div class="chatbot">
+            <h3>Calculus Quiz</h3>
+            <p>What is the main focus of calculus?</p>
+            <button onclick="alert('Correct!')">Continuous change</button>
+            <button onclick="alert('Try again!')">Static quantities</button>
+            <button onclick="alert('Try again!')">Discrete numbers</button>
+        </div>
+    </div>
+
+    <footer>
+        <button onclick="alert('C.R.E.A.T.E.R. mode not implemented in prototype')">C.R.E.A.T.E.R.</button>
+        <button onclick="alert('Course Maker not implemented in prototype')">Course Maker</button>
+    </footer>
+
+    <script>
+        const content = {
+            EN: `<p><span class="expand-video">[+]</span><a href="https://en.wikipedia.org/wiki/Calculus">Calculus</a> is the mathematical study of continuous change, in the same way that <span class="expand-video">[+]</span><a href="https://en.wikipedia.org/wiki/Geometry">geometry</a> is the study of shape and <span class="expand-video">[+]</span><a href="https://en.wikipedia.org/wiki/Algebra">algebra</a> is the study of generalizations of arithmetic operations.</p>
+                <p>It has two major branches, <span class="expand-video">[+]</span><a href="https://en.wikipedia.org/wiki/Differential_calculus">differential calculus</a> and <span class="expand-video">[+]</span><a href="https://en.wikipedia.org/wiki/Integral_calculus">integral calculus</a>. The former concerns instantaneous rates of change, and the slopes of curves, while integral calculus concerns accumulation of quantities, and areas under or between curves. These two branches are related to each other by the <span class="expand-video">[+]</span><a href="https://en.wikipedia.org/wiki/Fundamental_theorem_of_calculus">fundamental theorem of calculus</a>.</p>`,
+            FR: `<p><span class="expand-video">[+]</span><a href="https://fr.wikipedia.org/wiki/Calcul_infinit%C3%A9simal">Le calcul</a> est l'étude mathématique du changement continu, de la même manière que la <span class="expand-video">[+]</span><a href="https://fr.wikipedia.org/wiki/G%C3%A9om%C3%A9trie">géométrie</a> est l'étude des formes et l'<span class="expand-video">[+]</span><a href="https://fr.wikipedia.org/wiki/Alg%C3%A8bre">algèbre</a> est l'étude des généralisations des opérations arithmétiques.</p>
+                <p>Il a deux branches principales, le <span class="expand-video">[+]</span><a href="https://fr.wikipedia.org/wiki/Calcul_diff%C3%A9rentiel">calcul différentiel</a> et le <span class="expand-video">[+]</span><a href="https://fr.wikipedia.org/wiki/Calcul_int%C3%A9gral">calcul intégral</a>. Le premier concerne les taux de changement instantanés et les pentes des courbes, tandis que le second concerne l'accumulation de quantités et les surfaces sous ou entre les courbes. Ces deux branches sont liées entre elles par le <span class="expand-video">[+]</span><a href="https://fr.wikipedia.org/wiki/Th%C3%A9or%C3%A8me_fondamental_du_calcul_int%C3%A9gral">théorème fondamental du calcul</a>.</p>`,
+            ES: `<p><span class="expand-video">[+]</span><a href="https://es.wikipedia.org/wiki/C%C3%A1lculo">El cálculo</a> es el estudio matemático del cambio continuo, de la misma manera que la <span class="expand-video">[+]</span><a href="https://es.wikipedia.org/wiki/Geometr%C3%ADa">geometría</a> es el estudio de las formas y el <span class="expand-video">[+]</span><a href="https://es.wikipedia.org/wiki/%C3%81lgebra">álgebra</a> es el estudio de las generalizaciones de las operaciones aritméticas.</p>
+                <p>Tiene dos ramas principales, el <span class="expand-video">[+]</span><a href="https://es.wikipedia.org/wiki/C%C3%A1lculo_diferencial">cálculo diferencial</a> y el <span class="expand-video">[+]</span><a href="https://es.wikipedia.org/wiki/C%C3%A1lculo_integral">cálculo integral</a>. El primero se refiere a las tasas instantáneas de cambio y las pendientes de las curvas, mientras que el segundo se refiere a la acumulación de cantidades y las áreas bajo o entre las curvas. Estas dos ramas están relacionadas entre sí por el <span class="expand-video">[+]</span><a href="https://es.wikipedia.org/wiki/Teorema_fundamental_del_c%C3%A1lculo">teorema fundamental del cálculo</a>.</p>`,
+            DE: `<p><span class="expand-video">[+]</span><a href="https://de.wikipedia.org/wiki/Analysis">Die Analysis</a> ist das mathematische Studium der kontinuierlichen Veränderung, genauso wie die <span class="expand-video">[+]</span><a href="https://de.wikipedia.org/wiki/Geometrie">Geometrie</a> das Studium der Formen und die <span class="expand-video">[+]</span><a href="https://de.wikipedia.org/wiki/Algebra">Algebra</a> das Studium der Verallgemeinerungen arithmetischer Operationen ist.</p>
+                <p>Sie hat zwei Hauptzweige, die <span class="expand-video">[+]</span><a href="https://de.wikipedia.org/wiki/Differentialrechnung">Differentialrechnung</a> und die <span class="expand-video">[+]</span><a href="https://de.wikipedia.org/wiki/Integralrechnung">Integralrechnung</a>. Ersteres befasst sich mit den momentanen Änderungsraten und den Steigungen von Kurven, während letzteres die Akkumulation von Mengen und Flächen unter oder zwischen Kurven betrifft. Diese beiden Zweige sind durch den <span class="expand-video">[+]</span><a href="https://de.wikipedia.org/wiki/Hauptsatz_der_Differential-_und_Integralrechnung">fundamentalen Satz der Analysis</a> miteinander verbunden.</p>`,
+            RU: `<p><span class="expand-video">[+]</span><a href="https://ru.wikipedia.org/wiki/%D0%9C%D0%B0%D1%82%D0%B5%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B8%D0%B9_%D0%B0%D0%BD%D0%B0%D0%BB%D0%B8%D0%B7">Математический анализ</a> — это математическое изучение непрерывного изменения, так же как <span class="expand-video">[+]</span><a href="https://ru.wikipedia.org/wiki/%D0%93%D0%B5%D0%BE%D0%BC%D0%B5%D1%82%D1%80%D0%B8%D1%8F">геометрия</a> — это изучение формы, а <span class="expand-video">[+]</span><a href="https://ru.wikipedia.org/wiki/%D0%90%D0%BB%D0%B3%D0%B5%D0%B1%D1%80%D0%B0">алгебра</a> — это изучение обобщений арифметических операций.</p>
+                <p>Он имеет две основные ветви: <span class="expand-video">[+]</span><a href="https://ru.wikipedia.org/wiki/%D0%94%D0%B8%D1%84%D1%84%D0%B5%D1%80%D0%B5%D0%BD%D1%86%D0%B8%D0%B0%D0%BB%D1%8C%D0%BD%D0%BE%D0%B5_%D0%B8%D1%81%D1%87%D0%B8%D1%81%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5">дифференциальное исчисление</a> и <span class="expand-video">[+]</span><a href="https://ru.wikipedia.org/wiki/%D0%98%D0%BD%D1%82%D0%B5%D0%B3%D1%80%D0%B0%D0%BB%D1%8C%D0%BD%D0%BE%D0%B5_%D0%B8%D1%81%D1%87%D0%B8%D1%81%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5">интегральное исчисление</a>. Первое касается мгновенных скоростей изменения и наклонов кривых, в то время как второе касается накопления величин и площадей под кривыми или между ними. Эти две ветви связаны друг с другом <span class="expand-video">[+]</span><a href="https://ru.wikipedia.org/wiki/%D0%9E%D1%81%D0%BD%D0%BE%D0%B2%D0%BD%D0%B0%D1%8F_%D1%82%D0%B5%D0%BE%D1%80%D0%B5%D0%BC%D0%B0_%D0%BC%D0%B0%D1%82%D0%B5%D0%BC%D0%B0%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%BE%D0%B3%D0%BE_%D0%B0%D0%BD%D0%B0%D0%BB%D0%B8%D0%B7%D0%B0">основной теоремой математического анализа</a>.</p>`,
+            SW: `<p><span class="expand-video">[+]</span><a href="https://sw.wikipedia.org/wiki/Hesabu">Kalkuli</a> ni uchunguzi wa kihesabu wa mabadiliko ya mfululizo, kama vile <span class="expand-video">[+]</span><a href="https://sw.wikipedia.org/wiki/Jometri">jiometri</a> ni uchunguzi wa umbo na <span class="expand-video">[+]</span><a href="https://sw.wikipedia.org/wiki/Aljebra">aljebra</a> ni uchunguzi wa ujumlishaji wa operesheni za hesabu.</p>
+                <p>Ina matawi makuu mawili, <span class="expand-video">[+]</span><a href="https://sw.wikipedia.org/wiki/Hisabati">kalkuli ya differential</a> na <span class="expand-video">[+]</span><a href="https://sw.wikipedia.org/wiki/Hesabu">kalkuli ya integral</a>. Ya kwanza inahusu viwango vya mabadiliko ya papo hapo na miteremko ya mikondo, wakati kalkuli ya pili inahusu mkusanyiko wa kiasi na maeneo chini au kati ya mikondo. Matawi haya mawili yanahusiana kwa <span class="expand-video">[+]</span><a href="https://sw.wikipedia.org/wiki/Misingi">theoremu ya msingi ya kalkuli</a>.</p>`
+        };
+
+        function changeLanguage() {
+            const language = document.getElementById('language-select').value;
+            document.getElementById('content').innerHTML = content[language];
+            addExpandListeners();
+        }
+
+        function addExpandListeners() {
+            document.querySelectorAll('.expand-video').forEach(item => {
+                item.addEventListener('click', event => {
+                    const link = event.target.nextElementSibling;
+                    const searchQuery = link.textContent;
+                    const resultsId = `${searchQuery.toLowerCase()}-video-results`;
+                    let videoResults = document.getElementById(resultsId);
+
+                    if (!videoResults) {
+                        videoResults = document.createElement('div');
+                        videoResults.id = resultsId;
+                        videoResults.className = 'video-results';
+                        link.parentNode.insertBefore(videoResults, link.nextSibling);
+                    }
+
+                    if (videoResults.style.display === 'none' || videoResults.style.display === '') {
+                        videoResults.style.display = 'block';
+                        event.target.textContent = '[-]';
+
+                        // Generate video thumbnails
+                        let carouselContent = '<div class="video-carousel">';
+                        for (let i = 1; i <= 5; i++) {
+                            carouselContent += `
+                                <div class="video-item">
+                                    <div class="video-thumbnail">
+                                        <img src="https://via.placeholder.com/160x90" alt="${searchQuery}: Video ${i}">
+                                    </div>
+                                    <div class="video-title">${searchQuery}: Video ${i}</div>
+                                </div>
+                            `;
+                        }
+                        carouselContent += '</div>';
+                        videoResults.innerHTML = carouselContent;
+                    } else {
+                        videoResults.style.display = 'none';
+                        event.target.textContent = '[+]';
+                    }
+                });
+            });
+        }
+
+        // Initialize with English content
+        changeLanguage();
+    </script>
+</body>
+</html>

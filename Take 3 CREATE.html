@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>C.R.E.A.T.E.R. Mode Prototype</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Lato', 'Helvetica', 'Arial', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+        header {
+            background-color: #ffffff;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #a2a9b1;
+        }
+        .wordmark {
+            font-family: 'Hoefler Text', serif;
+            font-size: 24px;
+            color: #202122;
+            text-decoration: none;
+        }
+        .search-bar {
+            flex-grow: 1;
+            margin: 0 20px;
+        }
+        .search-bar input {
+            width: 100%;
+            padding: 5px 10px;
+            border: 1px solid #a2a9b1;
+            border-radius: 2px;
+        }
+        .user-actions button {
+            margin-left: 10px;
+            padding: 5px 10px;
+            background-color: #3366cc;
+            color: white;
+            border: none;
+            border-radius: 2px;
+            cursor: pointer;
+        }
+        .tablet {
+            width: 800px;
+            height: 600px;
+            margin: 0 auto;
+            background-color: white;
+            border: 2px solid #333;
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        .title {
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .buttons {
+            display: flex;
+            gap: 10px;
+        }
+        .btn {
+            padding: 5px 15px;
+            border-radius: 15px;
+            border: none;
+            color: white;
+            cursor: pointer;
+        }
+        .btn-go { background-color: #4CAF50; }
+        .btn-repeat { background-color: #8BC34A; color: black; }
+        .btn-twitter { background-color: #1DA1F2; }
+        .content {
+            display: flex;
+            gap: 20px;
+            flex-grow: 1;
+        }
+        .categories {
+            width: 50%;
+        }
+        .category {
+            margin-bottom: 10px;
+        }
+        .category-label {
+            display: flex;
+            align-items: center;
+        }
+        .category-label label {
+            margin-left: 5px;
+        }
+        .progress-bar {
+            height: 8px;
+            background-color: #4CAF50;
+            border-radius: 4px;
+            margin-top: 3px;
+        }
+        .videos {
+            width: 50%;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            overflow-y: auto;
+        }
+        .video {
+            background-color: #ddd;
+            border-radius: 5px;
+            overflow: hidden;
+            position: relative;
+            width: 160px;
+            height: 90px;
+            cursor: pointer;
+        }
+        .video img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .video::after {
+            content: '▶️';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 24px;
+            color: white;
+            text-shadow: 0 0 5px rgba(0,0,0,0.5);
+        }
+        .actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 15px;
+        }
+        .action {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+        .icon {
+            margin-right: 5px;
+        }
+        .selected {
+            border: 2px solid #4CAF50;
+        }
+        .arrow-button {
+            display: flex;
+            align-items: center;
+            padding: 5px 10px;
+            border-radius: 5px;
+            color: white;
+            cursor: pointer;
+            margin: 0 10px;
+        }
+        .arrow-button.green {
+            background-color: #4CAF50;
+        }
+        .arrow-button.red {
+            background-color: #f44336;
+        }
+        .arrow-button .arrow {
+            font-size: 16px;
+            margin-right: 5px;
+        }
+        footer {
+            background-color: #f8f9fa;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: center;
+            border-top: 1px solid #a2a9b1;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+        }
+        footer button {
+            margin: 0 10px;
+            padding: 5px 10px;
+            background-color: #3366cc;
+            color: white;
+            border: none;
+            border-radius: 2px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="#" class="wordmark">Wikitube</a>
+        <div class="search-bar">
+            <input type="text" placeholder="Search Wikitube">
+        </div>
+        <div class="user-actions">
+            <span>👤 User</span>
+            <button onclick="alert('Logout functionality not implemented in prototype')">Log Out</button>
+            <button onclick="alert('Thank you for your support!')">Donate</button>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="tablet">
+            <div class="header">
+                <div class="title">C.R.E.A.T.E.R.</div>
+                <div class="buttons">
+                    <button class="btn btn-go">Go!</button>
+                    <button class="btn btn-repeat">Repeat?</button>
+                    <button class="btn btn-twitter">𝕏</button>
+                </div>
+            </div>
+            <div class="content">
+                <div class="categories">
+                    <div class="category">
+                        <div class="category-label">
+                            <input type="radio" id="computation" name="category" checked>
+                            <label for="computation">Computation</label>
+                        </div>
+                        <div class="progress-bar" style="width: 70%;"></div>
+                    </div>
+                    <div class="category">
+                        <div class="category-label">
+                            <input type="radio" id="robotics" name="category">
+                            <label for="robotics">Robotics</label>
+                        </div>
+                        <div class="progress-bar" style="width: 40%;"></div>
+                    </div>
+                    <div class="category">
+                        <div class="category-label">
+                            <input type="radio" id="engineering" name="category">
+                            <label for="engineering">Engineering</label>
+                        </div>
+                        <div class="progress-bar" style="width: 20%;"></div>
+                    </div>
+                    <div class="category">
+                        <div class="category-label">
+                            <input type="radio" id="arts" name="category">
+                            <label for="arts">Arts</label>
+                        </div>
+                        <div class="progress-bar" style="width: 90%;"></div>
+                    </div>
+                    <div class="category">
+                        <div class="category-label">
+                            <input type="radio" id="technology" name="category">
+                            <label for="technology">Technology</label>
+                        </div>
+                        <div class="progress-bar" style="width: 30%;"></div>
+                    </div>
+                    <div class="category">
+                        <div class="category-label">
+                            <input type="radio" id="energy" name="category">
+                            <label for="energy">Energy</label>
+                        </div>
+                        <div class="progress-bar" style="width: 60%;"></div>
+                    </div>
+                    <div class="category">
+                        <div class="category-label">
+                            <input type="radio" id="random" name="category">
+                            <label for="random">Random</label>
+                        </div>
+                        <div class="progress-bar" style="width: 50%;"></div>
+                    </div>
+                </div>
+                <div class="videos">
+                    <div class="video"><img src="https://via.placeholder.com/160x90" alt="Video 1"></div>
+                    <div class="video"><img src="https://via.placeholder.com/160x90" alt="Video 2"></div>
+                    <div class="video"><img src="https://via.placeholder.com/160x90" alt="Video 3"></div>
+                    <div class="video"><img src="https://via.placeholder.com/160x90" alt="Video 4"></div>
+                    <div class="video"><img src="https://via.placeholder.com/160x90" alt="Video 5"></div>
+                </div>
+            </div>
+            <div class="actions">
+                <div class="action">
+                    <span class="icon">+</span>
+                    <span>Add to Database</span>
+                </div>
+                <div class="action arrow-button green">
+                    <span class="arrow">⬅</span>
+                    <span>Select</span>
+                </div>
+                <div class="action arrow-button red">
+                    <span class="arrow">➡</span>
+                    <span>Delete</span>
+                </div>
+                <div class="action">
+                    <span class="icon">🗑️</span>
+                    <span>Remove from Results</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <button onclick="alert('Course Maker not implemented in prototype')">Course Maker</button>
+    </footer>
+
+    <script>
+        const videos = document.querySelectorAll('.video');
+        let startX, moveX;
+
+        videos.forEach(video => {
+            video.addEventListener('touchstart', e => {
+                startX = e.touches[0].clientX;
+            });
+
+            video.addEventListener('touchmove', e => {
+                moveX = e.touches[0].clientX;
+            });
+
+            video.addEventListener('touchend', e => {
+                const diffX = startX - moveX;
+                if (Math.abs(diffX) > 50) { // Swipe threshold
+                    if (diffX > 0) {
+                        // Swipe left: deselect
+                        video.classList.remove('selected');
+                    } else {
+                        // Swipe right: select
+                        video.classList.add('selected');
+                    }
+                }
+            });
+
+            // For demonstration on desktop
+            video.addEventListener('click', () => {
+                video.classList.toggle('selected');
+            });
+        });
+    </script>
+</body>
+</html>

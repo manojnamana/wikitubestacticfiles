@@ -1,0 +1,148 @@
+Wikitube.io
+
+The MVP will have 24,000 (C.R.E.A.T.E.) Wikipedia articles and a functional C.R.E.A.T.E.R. page for students, volunteers, interns and community service workers to log time learning and rating videos. This same community can also log time validating multiple choice questions or curating time coded hyperlinked transcripts.
+
+
+Wikitube.io will have explanatory video and links to interesting and/or recently updated articles. Each mode will have one time overlays illustrating or highlighting features for first time users.
+
+
+This application is a database and web driven application with a requirement for robust error handling. The design below is optimized for iPad to illustrate features. As we approach MVP a responsive mobile design will be planned.
+--------------------------------------------------------------
+Common Features - All Modes:
+
+Header
+
+
+Wikitube logo - leads to Player mode with Welcome / About Us Video
+
+"Search Wikitube" - Returns different search result types depending on mode
+
+User icon indicating logged-in state
+
+Authentication button - Google
+
+Donate button - We can find a non profit to work as fiscal agent
+
+
+Footer
+
+
+C.R.E.A.T.E.R. button - Links to “Get Involved” signup page (not pictured)
+
+Course Maker button - Links to “Pay” page (not pictured)
+
+Labs button (not pictured)
+
+Modes
+The Directory - Direct copy of Wikipedia with [+][-] controls that reveal DB and Web return objects.
+
+The Player - Plays videos with a time coded multilingual transcript.
+
+Transcript Editor - Allows admins to edit and improve transcript text and links.
+
+C.R.E.A.T.E.R. - Users log time watching, selecting and rating videos from the C.R.E.A.T.E. course.
+
+Course Maker - Paid feature for creating custom courses.
+
+Common Behaviors - All Modes
+
+WikiLinks open in the Directory wikitube.io/wiki/article_name 
+
+Video Thumbs open in the Player  wikutube.io/tube/video_id 
+
+Microsims open in the Microsim Editor (not pictured) www.wikitube.io/microsim
+
+
+The Directory
+
+
+
+Wikipedia-style article display. Ideally using the same data and CSS as wikipedia
+
+Search returns Wikitube.io/wiki/ results similar to Wikipedia
+
+Language selector (EN, Indian Constitutional Languages)
+
+Expandable video lists ([+]/[-] controls) next to links
+
+Horizontal scrolling thumbnail carousel with 25 thumbnails + descriptions when expanded
+
+Multiple-choice questions related to article_name
+
+The Player
+
+
+
+
+CSS should be as similar to Youtube as we can muster
+
+Fully featured video transport (timeline, speed, full screen, etc.)  
+
+Time coded hyperlinked transcript displays text, links, images or animations
+
+Blank placeholder thumbnails on link hover, indicate Directory source
+
+Two language controls adjust transcript and wikitext independently
+
+Transcript Editor Button (see: Transcript Editor for functionality)
+
+"Next Up" function appearing in the last 15 seconds of the video
+
+Video Blob description etc.
+
+Share button includes deep link sharing
+
+Collapsable Wikidata div shows the key Wikipedia article (associated with the video)
+
+Chatbot interface with multiple-choice questions related to video_id or key wiki article
+
+Transcript Editor
+
+WYSIWYG editor for transcript segments
+
+Time input fields for each segment
+
+User name input for each segment
+
+Add/remove segment
+
+Hyperlinking functionality Wikitube.io articles or database objects
+
+Save changes option
+
+Cancel (x)
+
+
+C.R.E.A.T.E.R.
+
+"Go!" and "Repeat?" buttons initialize and refresh searches
+
+Category progress bars (Computation, Robotics, Energy, Audio, Television, Engineering, Random) show user’s progress through each course topic
+
+Concatenated search term yielding the vertical result carousel (not pictured)
+
+Vertical result carousel with 25 video thumbnails
+
+Swipe actions for adding/deleting videos (left: add, right: delete) - draggable
+
+"Open in Player" button for each thumbnail (not pictured)
+
+Course Maker
+
+Course creation interface
+
+Input for course name
+
+Input for Wikipedia articles with regex validation
+
+Display of added articles (max 12, visually indicated)
+
+List of 5 pre-existing courses for editing/deleting (physics teacher themed)
+
+"Save Course" button
+
+Share course (not pictured)
+
+Charge for course (not pictured)
+
+

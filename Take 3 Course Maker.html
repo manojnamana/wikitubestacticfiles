@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wikitube Course-Maker</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Lato', 'Helvetica', 'Arial', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+        }
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        header {
+            background-color: #ffffff;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #a2a9b1;
+        }
+        .wordmark {
+            font-family: 'Hoefler Text', serif;
+            font-size: 24px;
+            color: #202122;
+            text-decoration: none;
+        }
+        .search-bar {
+            flex-grow: 1;
+            margin: 0 20px;
+        }
+        .search-bar input {
+            width: 100%;
+            padding: 5px 10px;
+            border: 1px solid #a2a9b1;
+            border-radius: 2px;
+        }
+        .user-actions button {
+            margin-left: 10px;
+            padding: 5px 10px;
+            background-color: #3366cc;
+            color: white;
+            border: none;
+            border-radius: 2px;
+            cursor: pointer;
+        }
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        input[type="text"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        button:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            background-color: #f1f1f1;
+            margin-bottom: 5px;
+            padding: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-radius: 4px;
+        }
+        .remove-btn {
+            background-color: #f44336;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        .remove-btn:hover {
+            background-color: #d32f2f;
+        }
+        footer {
+            background-color: #f8f9fa;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: center;
+            border-top: 1px solid #a2a9b1;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+        }
+        footer button {
+            margin: 0 10px;
+            padding: 5px 10px;
+            background-color: #3366cc;
+            color: white;
+            border: none;
+            border-radius: 2px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="#" class="wordmark">Wikitube</a>
+        <div class="search-bar">
+            <input type="text" placeholder="Search Wikitube">
+        </div>
+        <div class="user-actions">
+            <span>👤 User</span>
+            <button onclick="alert('Logout functionality not implemented in prototype')">Log Out</button>
+            <button onclick="alert('Thank you for your support!')">Donate</button>
+        </div>
+    </header>
+
+    <div class="container">
+        <h1>Wikitube Course-Maker</h1>
+        
+        <div>
+            <label for="courseName">Course Name:</label>
+            <input type="text" id="courseName" placeholder="Enter course name">
+        </div>
+        
+        <div>
+            <label for="newArticle">Add Wikipedia Article:</label>
+            <input type="text" id="newArticle" placeholder="Enter Wikipedia article name">
+            <button id="addArticle">Add Article</button>
+        </div>
+        
+        <div>
+            <h2>Course Articles (<span id="articleCount">0</span>/12):</h2>
+            <ul id="articleList"></ul>
+        </div>
+        
+        <button id="saveCourse">Save Course</button>
+    </div>
+
+    <footer>
+        <button onclick="alert('C.R.E.A.T.E.R. mode not implemented in prototype')">C.R.E.A.T.E.R.</button>
+        <button onclick="alert('Course Maker not implemented in prototype')">Course Maker</button>
+    </footer>
+
+    <script>
+        const courseName = document.getElementById('courseName');
+        const newArticle = document.getElementById('newArticle');
+        const addArticleBtn = document.getElementById('addArticle');
+        const articleList = document.getElementById('articleList');
+        const articleCount = document.getElementById('articleCount');
+        const saveCourseBtn = document.getElementById('saveCourse');
+
+        let articles = [];
+
+        function updateArticleList() {
+            articleList.innerHTML = '';
+            articles.forEach((article, index) => {
+                const li = document.createElement('li');
+                li.innerHTML = `
+                    ${article}
+                    <button class="remove-btn" data-index="${index}">Remove</button>
+                `;
+                articleList.appendChild(li);
+            });
+            articleCount.textContent = articles.length;
+            addArticleBtn.disabled = articles.length >= 12;
+        }
+
+        addArticleBtn.addEventListener('click', () => {
+            if (newArticle.value && articles.length < 12) {
+                articles.push(newArticle.value);
+                newArticle.value = '';
+                updateArticleList();
+            }
+        });
+
+        articleList.addEventListener('click', (e) => {
+            if (e.target.classList.contains('remove-btn')) {
+                const index = parseInt(e.target.getAttribute('data-index'));
+                articles.splice(index, 1);
+                updateArticleList();
+            }
+        });
+
+        saveCourseBtn.addEventListener('click', () => {
+            if (courseName.value && articles.length > 0) {
+                alert(`Course "${courseName.value}" saved with ${articles.length} articles!`);
+                // Here you would typically send this data to your backend
+            } else {
+                alert('Please provide a course name and at least one article.');
+            }
+        });
+    </script>
+</body>
+</html>

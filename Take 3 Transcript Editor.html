@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WYSIWYG Transcript Editor</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Lato', 'Helvetica', 'Arial', sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            position: relative;
+        }
+        header {
+            background-color: #ffffff;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #a2a9b1;
+        }
+        .wordmark {
+            font-family: 'Hoefler Text', serif;
+            font-size: 24px;
+            color: #202122;
+            text-decoration: none;
+        }
+        .search-bar {
+            flex-grow: 1;
+            margin: 0 20px;
+        }
+        .search-bar input {
+            width: 100%;
+            padding: 5px 10px;
+            border: 1px solid #a2a9b1;
+            border-radius: 2px;
+        }
+        .user-actions button {
+            margin-left: 10px;
+            padding: 5px 10px;
+            background-color: #3366cc;
+            color: white;
+            border: none;
+            border-radius: 2px;
+            cursor: pointer;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .segment {
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+        }
+        .segment-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .segment-title {
+            font-weight: bold;
+        }
+        .btn {
+            padding: 5px 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+        .btn-danger {
+            background-color: #dc3545;
+        }
+        .btn-danger:hover {
+            background-color: #c82333;
+        }
+        .input-group {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        input, textarea {
+            width: 100%;
+            padding: 5px;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+        }
+        .editor {
+            border: 1px solid #ddd;
+            padding: 10px;
+            min-height: 100px;
+            border-radius: 3px;
+            margin-bottom: 10px;
+        }
+        .toolbar {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        .wiki-search {
+            position: absolute;
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+            max-height: 200px;
+            overflow-y: auto;
+            z-index: 1000;
+        }
+        .wiki-search-item {
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+        .wiki-search-item:hover {
+            background-color: #f0f0f0;
+        }
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: #dc3545;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            font-size: 18px;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .close-btn:hover {
+            background-color: #c82333;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.4);
+        }
+        .modal-content {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 300px;
+            text-align: center;
+        }
+        .modal-buttons {
+            margin-top: 20px;
+        }
+        .modal-btn {
+            margin: 0 10px;
+            padding: 5px 15px;
+        }
+        footer {
+            background-color: #f8f9fa;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: center;
+            border-top: 1px solid #a2a9b1;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+        }
+        footer button {
+            margin: 0 10px;
+            padding: 5px 10px;
+            background-color: #3366cc;
+            color: white;
+            border: none;
+            border-radius: 2px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <a href="#" class="wordmark">Wikitube</a>
+        <div class="search-bar">
+            <input type="text" placeholder="Search Wikitube">
+        </div>
+        <div class="user-actions">
+            <span>👤 User</span>
+            <button onclick="alert('Logout functionality not implemented in prototype')">Log Out</button>
+            <button onclick="alert('Thank you for your support!')">Donate</button>
+        </div>
+    </header>
+
+    <div class="container">
+        <h1>WYSIWYG Transcript Editor</h1>
+        <button class="close-btn" id="close-editor">✕</button>
+        <div id="transcript-container"></div>
+        <button id="add-segment" class="btn">Add New Segment</button>
+    </div>
+
+    <div id="close-confirmation" class="modal">
+        <div class="modal-content">
+            <p>Are you sure you want to close? Unsaved changes will be lost.</p>
+            <div class="modal-buttons">
+                <button id="confirm-close" class="btn modal-btn">Yes</button>
+                <button id="cancel-close" class="btn modal-btn">No</button>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <button onclick="alert('C.R.E.A.T.E.R. mode not implemented in prototype')">C.R.E.A.T.E.R.</button>
+        <button onclick="alert('Course Maker not implemented in prototype')">Course Maker</button>
+    </footer>
+
+    <script>
+        const transcriptContainer = document.getElementById('transcript-container');
+        const addSegmentBtn = document.getElementById('add-segment');
+        const closeEditorBtn = document.getElementById('close-editor');
+        const closeConfirmationModal = document.getElementById('close-confirmation');
+        const confirmCloseBtn = document.getElementById('confirm-close');
+        const cancelCloseBtn = document.getElementById('cancel-close');
+
+        const initialTranscript = [
+            {
+                startTime: "0:00",
+                endTime: "0:10",
+                text: 'Welcome to this introduction to <a href="/wiki/Arithmetic">arithmetic</a>.',
+                speakerName: "John Doe"
+            },
+            {
+                startTime: "0:10",
+                endTime: "0:20",
+                text: '<a href="/wiki/Arithmetic">Arithmetic</a> is a branch of <a href="/wiki/Mathematics">mathematics</a> that consists of the study of numbers.',
+                speakerName: "John Doe"
+            }
+        ];
+
+        function renderTranscript() {
+            transcriptContainer.innerHTML = '';
+            initialTranscript.forEach((segment, index) => {
+                const segmentElement = createSegmentElement(segment, index);
+                transcriptContainer.appendChild(segmentElement);
+            });
+        }
+
+        function createSegmentElement(segment, index) {
+            const segmentDiv = document.createElement('div');
+            segmentDiv.className = 'segment';
+            segmentDiv.innerHTML = `
+                <div class="segment-header">
+                    <span class="segment-title">Segment ${index + 1}</span>
+                </div>
+                <div class="input-group">
+                    <input type="text" class="start-time" value="${segment.startTime}" placeholder="Start Time">
+                    <input type="text" class="end-time" value="${segment.endTime}" placeholder="End Time">
+                </div>
+                <div class="editor" contenteditable="true">${segment.text}</div>
+                <input type="text" class="speaker-name" value="${segment.speakerName}" placeholder="Speaker Name">
+                <div class="toolbar">
+                    <button class="btn hyperlink-btn">🔗</button>
+                    <button class="btn save-btn">💾</button>
+                </div>
+            `;
+
+            const hyperlinkBtn = segmentDiv.querySelector('.hyperlink-btn');
+            const saveBtn = segmentDiv.querySelector('.save-btn');
+            const editor = segmentDiv.querySelector('.editor');
+
+            hyperlinkBtn.addEventListener('click', () => handleHyperlink(editor));
+            saveBtn.addEventListener('click', () => saveSegment(segmentDiv, index));
+
+            return segmentDiv;
+        }
+
+        function handleHyperlink(editor) {
+            const selection = window.getSelection();
+            const range = selection.getRangeAt(0);
+            const selectedText = range.toString();
+
+            if (selectedText) {
+                const wikiSearch = document.createElement('div');
+                wikiSearch.className = 'wiki-search';
+                wikiSearch.style.left = `${range.getBoundingClientRect().left}px`;
+                wikiSearch.style.top = `${range.getBoundingClientRect().bottom}px`;
+
+                // Simulate Wikipedia search results
+                const searchResults = [
+                    { title: 'Mathematics', url: '/wiki/Mathematics' },
+                    { title: 'Arithmetic', url: '/wiki/Arithmetic' },
+                    { title: 'Number', url: '/wiki/Number' }
+                ];
+
+                searchResults.forEach(result => {
+                    const item = document.createElement('div');
+                    item.className = 'wiki-search-item';
+                    item.textContent = result.title;
+                    item.onclick = () => {
+                        const link = document.createElement('a');
+                        link.href = result.url;
+                        range.surroundContents(link);
+                        wikiSearch.remove();
+                    };
+                    wikiSearch.appendChild(item);
+                });
+
+                document.body.appendChild(wikiSearch);
+
+                // Close search results when clicking outside
+                document.addEventListener('click', function closeSearch(e) {
+                    if (!wikiSearch.contains(e.target)) {
+                        wikiSearch.remove();
+                        document.removeEventListener('click', closeSearch);
+                    }
+                });
+            }
+        }
+
+        function saveSegment(segmentDiv, index) {
+            initialTranscript[index] = {
+                startTime: segmentDiv.querySelector('.start-time').value,
+                endTime: segmentDiv.querySelector('.end-time').value,
+                text: segmentDiv.querySelector('.editor').innerHTML,
+                speakerName: segmentDiv.querySelector('.speaker-name').value
+            };
+            alert('Segment saved!'); // In a real application, you'd want to update your backend here
+        }
+
+        addSegmentBtn.addEventListener('click', () => {
+            initialTranscript.push({
+                startTime: '',
+                endTime: '',
+                text: '',
+                speakerName: ''
+            });
+            renderTranscript();
+        });
+
+        closeEditorBtn.addEventListener('click', () => {
+            closeConfirmationModal.style.display = 'block';
+        });
+
+        confirmCloseBtn.addEventListener('click', () => {
+            closeConfirmationModal.style.display = 'none';
+            // Here you would typically close the editor or navigate away
+            alert('Editor closed without saving changes.');
+        });
+
+        cancelCloseBtn.addEventListener('click', () => {
+            closeConfirmationModal.style.display = 'none';
+        });
+
+        renderTranscript();
+    </script>
+</body>
+</html>
